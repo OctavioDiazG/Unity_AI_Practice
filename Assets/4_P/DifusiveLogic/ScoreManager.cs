@@ -1,4 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
+public class ScoreManager : MonoBehaviour
+{
+    public Text damageText;
+    public Text timeText;
+    public Text healthText;
+    public Text collectiblesText;
+    public Text rankText;
+
+    public int damage;
+    public float time;
+    public int health;
+    public int collectibles;
+
+    void Start()
+    {
+        // Actualiza los valores de daño, tiempo, salud y coleccionables según la lógica de tu juego
+        // ...
+
+        // Calcula el rango para cada puntaje individualmente
+        string damageRank = CalculateRank(damage);
+        string timeRank = CalculateRank(time);
+        string healthRank = CalculateRank(health);
+        string collectiblesRank = CalculateRank(collectibles);
+
+        // Actualiza el texto en la UI con las letras en lugar de los números
+        damageText.text = "Daño: " + damageRank;
+        timeText.text = "Tiempo: " + timeRank;
+        healthText.text = "Salud: " + healthRank;
+        collectiblesText.text = "Coleccionables: " + collectiblesRank;
+
+        // Calcula el rango general basado en los valores de daño, tiempo, salud y coleccionables
+        string rank = CalculateOverallRank(damage, time, health, collectibles);
+        rankText.text = "Rango: " + rank;
+    }
+
+    string CalculateRank(float value)
+    {
+        // Calcula el rango para un puntaje individual
+        // Esta es solo una implementación de ejemplo, puedes ajustarla según tus necesidades
+        string rank = "Error";
+        if (value == time)
+        {
+            if (value >= 10) rank = "D";
+            else if (value >= 8) rank = "C";
+            else if (value >= 6) rank = "B";
+            else if (value >= 4) rank = "A";
+            else if (value >= 0.1) rank = "S";
+            return rank;
+        }
+        //if collectables
+        if (value == collectibles)
+        {
+            if (value >= 0) rank = "D";
+            else if (value >= 2) rank = "C";
+            else if (value >= 5) rank = "B";
+            else if (value >= 8) rank = "A";
+            else if (value >= 10) rank = "S";
+            return rank;
+        }
+        if (value == damage)
+        {
+            if (value >= 400) rank = "S";
+            else if (value >= 300) rank = "A";
+            else if (value >= 200) rank = "B";
+            else if (value >= 150) rank = "C";
+            else if (value >= 0) rank = "D";
+            return rank;
+        }
+        if (value == health)
+        {
+            if (value >= 90) rank = "S";
+            else if (value >= 80) rank = "A";
+            else if (value >= 70) rank = "B";
+            else if (value >= 60) rank = "C";
+            else if (value >= 1) rank = "D";
+            return rank;
+        }
+        
+        return rank;
+    }
+
+    string CalculateOverallRank(int damage, float time, int health, int collectibles)
+    {
+        // Calcula el rango general basado en los valores de daño, tiempo, salud y coleccionables
+        // Esta es solo una implementación de ejemplo, puedes ajustarla según tus necesidades
+        int score = (int)(damage * 0.2f - time * 0.3f + health * 0.2f + collectibles * 0.25f);
+        Debug.Log (score);
+        string rank = "D";
+        if (score >= 90) rank = "S";
+        else if (score >= 80) rank = "A";
+        else if (score >= 70) rank = "B";
+        else if (score >= 60) rank = "C";
+        return rank;
+    }
+}
+
+
+
+/*using UnityEngine;
 using AForge.Fuzzy;
 
 public class FuzzyRanking : MonoBehaviour
@@ -80,3 +184,4 @@ public class FuzzyRanking : MonoBehaviour
     }
 }
 
+*/
