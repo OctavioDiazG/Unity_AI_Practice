@@ -12,12 +12,16 @@ public class ScoreManager : MonoBehaviour
     public Text collectiblesText;
     public Text rankText;
 
+    [Range(0, 400)]
     public int damage;
+    [Range(0.0f, 10.0f)]
     public float time;
+    [Range(0, 100)]
     public int health;
+    [Range(0, 10)]
     public int collectibles;
 
-    void Start()
+    void Update()
     {
         // Actualiza los valores de daño, tiempo, salud y coleccionables según la lógica de tu juego
         // ...
@@ -53,14 +57,13 @@ public class ScoreManager : MonoBehaviour
             else if (value >= 0.1) rank = "S";
             return rank;
         }
-        //if collectables
         if (value == collectibles)
         {
-            if (value >= 0) rank = "D";
-            else if (value >= 2) rank = "C";
-            else if (value >= 5) rank = "B";
+            if (value >= 10) rank = "S";
             else if (value >= 8) rank = "A";
-            else if (value >= 10) rank = "S";
+            else if (value >= 5) rank = "B";
+            else if (value >= 2) rank = "C";
+            else if (value >= 0) rank = "D";
             return rank;
         }
         if (value == damage)
@@ -81,15 +84,13 @@ public class ScoreManager : MonoBehaviour
             else if (value >= 1) rank = "D";
             return rank;
         }
-        
         return rank;
     }
 
     string CalculateOverallRank(int damage, float time, int health, int collectibles)
     {
         // Calcula el rango general basado en los valores de daño, tiempo, salud y coleccionables
-        // Esta es solo una implementación de ejemplo, puedes ajustarla según tus necesidades
-        int score = (int)(damage * 0.2f - time * 0.3f + health * 0.2f + collectibles * 0.25f);
+        int score = (int)(damage * 0.2f - time * 0.35f + health * 0.28f + collectibles * 0.25f);
         Debug.Log (score);
         string rank = "D";
         if (score >= 90) rank = "S";
