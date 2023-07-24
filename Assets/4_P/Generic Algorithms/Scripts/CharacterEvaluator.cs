@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -82,3 +83,4 @@ public class CharacterEvaluator : MonoBehaviour
         return ColorType.Red; // Replace with actual color detection logic
     }
 }
+*/
